@@ -54,11 +54,7 @@ def I_HeShe():
 def IorHeShe_IandHeShe():
     global Alice, LookingGlass, TimeMachine, isShe
 
-<<<<<<< HEAD
-    everyI = [s for s in collectI(Alice+LookingGlass+TimeMachine)]
-=======
     everyI = [strip(s) for s in collectI(Alice+LookingGlass+TimeMachine)]
->>>>>>> master
 
     battles = 30
     gap = battles // 10
@@ -105,13 +101,8 @@ def You_IorHeShe():
     battles = 30
     gap = battles // 10
 
-<<<<<<< HEAD
-    everyI = [s for s in collectI(Alice+LookingGlass+TimeMachine)]
-    everyYou = [s for s in collectYou(Alice+LookingGlass+TimeMachine)]
-=======
     everyI = [strip(s) for s in collectI(Alice+LookingGlass+TimeMachine)]
     everyYou = [strip(s) for s in collectYou(Alice+LookingGlass+TimeMachine)]
->>>>>>> master
 
     result = ''
 
