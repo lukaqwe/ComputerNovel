@@ -26,7 +26,11 @@ def I_am_solitude():
 def interact():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
+<<<<<<< HEAD
     everySpeak = [s for s in onlyWord(Texts, ' speak') + onlyWord(Texts, ' spoke') + onlyWord(Texts, ' ask')
+=======
+    everySpeak = [strip(s) for s in onlyWord(Texts, ' speak') + onlyWord(Texts, ' spoke') + onlyWord(Texts, ' ask')
+>>>>>>> master
                   if not hasName(s) and (hasYou(s) or hasHe(s) or hasShe(s) or hasWe(s))]
     return '<br>'.join(mix(everySpeak, len(everySpeak)//feigenbaum))
 
@@ -35,14 +39,22 @@ def interact():
 def unity():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
+<<<<<<< HEAD
     everyBoth = [s for s in onlyWord(Texts, ' both') +
+=======
+    everyBoth = [strip(s) for s in onlyWord(Texts, ' both') +
+>>>>>>> master
                  onlyWord(Texts, ' together') if not hasName(s)]
     return ' '.join(mix(everyBoth, len(everyBoth)//feigenbaum))
 
 
 # returns I sentences from Invisible Man converted to a we
 def we():
+<<<<<<< HEAD
     everyWe = [ItoWe(s) for s in onlyI(InvisibleMan) if not hasName(s)
+=======
+    everyWe = [ItoWe(strip(s)) for s in onlyI(InvisibleMan) if not hasName(s)
+>>>>>>> master
                and not hasYou(s) and not hasHe(s) and not hasShe(s)]
     return '<br>'.join(mix(everyWe, len(everyWe)//feigenbaum))
 
@@ -51,9 +63,17 @@ def we():
 def death(we=False):
     global Frankenstein, Dracula
     AllDeath = onlyWord(Frankenstein+Dracula, ' ?[D,d]eath')
+<<<<<<< HEAD
     everyDeath = [s for s in AllDeath if not hasName(s)]  # len = 107
+=======
+    everyDeath = [strip(s) for s in AllDeath if not hasName(s)]  # len = 107
+>>>>>>> master
     everyIdeath = [sheToI(heToI(weToI(s))) for s in everyDeath]
     if we:
         return '<br>'.join([ItoWe(s) for s in mix(everyDeath, len(everyDeath)//feigenbaum) if not hasShe(s) and not hasHe(s)]+['We died.'])
     else:
+<<<<<<< HEAD
         return '<br>'.join(list(mix(everyIdeath, len(everyIdeath)//feigenbaum))+['I died.'])
+=======
+        return '<br>'.join(list(mix(everyIdeath, len(everyIdeath)//feigenbaum))+['<b>I died.</b>'])
+>>>>>>> master

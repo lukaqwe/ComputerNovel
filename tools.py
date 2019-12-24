@@ -13,6 +13,7 @@ def clean(string):
     return string.replace('\r', '').replace('\n', ' ').replace('   ', '')
 
 
+<<<<<<< HEAD
 # removes everything which is not alpha at the beginning and changes first letter to uppercase if necessary
 def strip(string):
     while not string[0].isalpha() and not string[0] == '<':
@@ -24,6 +25,9 @@ def strip(string):
 # deletes the project gutenberg foreword and afterword
 
 
+=======
+# deletes the project gutenberg foreword and afterword
+>>>>>>> master
 def slice(string):
     foreword = re.compile('[*]{3} START OF THIS PROJECT GUTENBERG .* [*]{3}')
     afterword = re.compile('[*]{3} END OF THIS PROJECT GUTENBERG .* [*]{3}')
@@ -34,7 +38,20 @@ def slice(string):
     return string[begin:end]
 
 
+<<<<<<< HEAD
 # returns a list of senteces that contain a word from input
+=======
+# removes everythin which is not alpha at the beginning and changes first letter to uppercase if necessary
+def strip(string):
+    while not string[0].isalpha():
+        string = string[1:]
+    if string[0].islower():
+        return string[0].upper() + string[1:]
+    return string
+
+
+# returns a list of senteces that contain a word taken as input
+>>>>>>> master
 def onlyWord(string, word):
     Word = re.compile('[ a-zA-Z,\-’\']*' + word + '[ a-zA-Z,\-\'’]*[.?!]{1}')
     return [bold(s, word) for s in Word.findall(clean(string))]
@@ -45,8 +62,11 @@ def onlyI(string):
     return onlyWord(string, ' I ')
 
 
+<<<<<<< HEAD
 # returns a list of sentences that contain Alice
 # This is used only for conversion to other subjects
+=======
+>>>>>>> master
 def onlyAlice(string):
     return onlyWord(string, ' Alice ')
 
@@ -73,6 +93,10 @@ def search(string, expression):
 # returns true if the string contains a name
 # (actually just an uppercase letter except I)
 def hasName(string):
+<<<<<<< HEAD
+=======
+    string = strip(string)  # just in case
+>>>>>>> master
     for i in range(1, len(string)):
         if string[i].isupper() and string[i] != 'I':
             return True
@@ -85,6 +109,10 @@ def decide():
 
 # returns True if it contains 'you'
 def hasYou(string):
+<<<<<<< HEAD
+=======
+    string = strip(string)
+>>>>>>> master
     return search(string, ' ?[Y,y]ou')
 
 
@@ -125,17 +153,29 @@ def mix(list, n):
 
 # converts he to she
 def heToShe(string):
+<<<<<<< HEAD
     return string.replace('He', 'She').replace(' he ', ' she ').replace(' his ', ' her ').replace(' him ', ' her ').replace(' himself', ' herself')
+=======
+    return string.replace('He ', 'She ').replace(' he ', ' she ').replace(' his ', ' her ').replace(' him ', ' her ').replace(' himself', ' herself')
+>>>>>>> master
 
 
 # converts she to he
 def sheToHe(string):
+<<<<<<< HEAD
     return string.replace('She', 'He').replace(' she ', ' he ').replace(' her ', ' his ').replace(' her ', ' him ').replace(' herself', ' himself')
+=======
+    return string.replace('She ', 'He ').replace(' she ', ' he ').replace(' her ', ' his ').replace(' her ', ' him ').replace(' herself', ' himself')
+>>>>>>> master
 
 
 # converts I to we
 def ItoWe(string):
+<<<<<<< HEAD
     return string.replace("I", 'We').replace(' me ', ' us ').replace(' my ', ' our ').replace(' myself', ' ourselves').replace(' am ', ' are ').replace('I,', 'We,').replace('Am ', 'Are ').replace(' was', ' were')
+=======
+    return string.replace("I ", 'We ').replace(' me ', ' us ').replace(' my ', ' our ').replace(' myself', ' ourselves').replace(' am ', ' are ').replace('I,', 'We,').replace('Am ', 'Are ').replace(' was', ' were')
+>>>>>>> master
 
 
 # converts We to I
@@ -165,6 +205,7 @@ def sheOrHeToYou(string):
     return string.replace('He ', 'You ').replace(' he ', ' you ').replace(' himself ', ' yourself').replace(' his ', ' your ').replace(' him ', ' you ')
 
 
+<<<<<<< HEAD
 def collectI(string):
     everyI = [strip(AliceToI(s)) for s in onlyAlice(string)] + onlyI(string)
     return everyI
@@ -182,6 +223,37 @@ def collectShe(string):
 
 def collectYou(string):
     everyYou = [s for s in onlyWord(string, '[Y,y]ou ') if not hasName(s)]
+=======
+# changes the man into human
+def manToHuman(string):
+    return string.replace(' man ', ' human ').replace(' woman ', ' human ')
+
+
+def collectI(string):
+    everyI = [strip(AliceToI(s)) for s in onlyAlice(string) + onlyI(string)]
+    everyIverb = [s for s in everyI if matches(s, 'I \w+d ') and not hasName(s)]
+    return everyIverb
+
+
+def collectHe(string):
+    everyHeShe = [strip(s) for s in onlyWord(string, '[s,S]?[H,h]e ')
+                  if not hasName(s) and not hasYou(s)]
+    everyHe = [ItoHe(s) for s in collectI(string)] + [sheToHe(s) for s in everyHeShe]
+    everyHeVerb = [s for s in everyHe if matches(s, 'He \w+d ')]
+    return everyHeVerb
+
+
+def collectShe(string):
+    everyHeShe = [strip(s) for s in onlyWord(string, '[s,S]?he ') + onlyWord(string, '[H,h]e ')
+                  if not hasName(s) and not hasYou(s)]
+    everyShe = [ItoShe(s) for s in collectI(string)] + [heToShe(s) for s in everyHeShe]
+    everySheVerb = [s for s in everyShe if matches(s, 'She \w+d ')]
+    return everySheVerb
+
+
+def collectYou(string):
+    everyYou = [strip(s) for s in onlyWord(string, '[Y,y]ou ') if not hasName(s)]
+>>>>>>> master
     everyYou += [sheOrHeToYou(s) for s in collectHe(string)+collectShe(string)]
     return everyYou
 
