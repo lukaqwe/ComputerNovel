@@ -5,17 +5,16 @@ from tools import *
 feigenbaum = 4.66920160910299
 
 
-# prints sentences that contain 'invisible' and 'alone'
+# returns sentences that contain 'invisible' and 'alone'
 def invisible_alone():
     global InvisibleMan
     everyInvisible = [s for s in onlyWord(
         InvisibleMan, ' [I,i]nvisible') + onlyWord(InvisibleMan, ' [A,a]?lone') if not hasYou(s) and not isChapter(s) and not hasName(s)]
     InvisibleI = [heToI(s) for s in everyInvisible]
-    print(len(InvisibleI))
     return "<br>".join(mix(InvisibleI, len(InvisibleI)//feigenbaum))
 
 
-# prints senteces that contain I form the Invisible Man
+# returns senteces that contain I form the Invisible Man
 def I_am_solitude():
     global InvisibleMan
     everyI = [s for s in onlyI(InvisibleMan) if not search(
@@ -23,6 +22,7 @@ def I_am_solitude():
     return ' '.join(mix(everyI, len(everyI)//(feigenbaum*2)))
 
 
+# returns sentences that contatin the word speak and ask
 def interact():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
@@ -31,6 +31,7 @@ def interact():
     return '<br>'.join(mix(everySpeak, len(everySpeak)//feigenbaum))
 
 
+# returns sentences that contain the word both and together
 def unity():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
@@ -39,6 +40,7 @@ def unity():
     return ' '.join(mix(everyBoth, len(everyBoth)//feigenbaum))
 
 
+# returns I sentences from Invisible Man converted to a we
 def we():
     everyWe = [ItoWe(strip(s)) for s in onlyI(InvisibleMan) if not hasName(s)
                and not hasYou(s) and not hasHe(s) and not hasShe(s)]
