@@ -41,13 +41,13 @@ def onlyWord(string, word):
 
 # returns a list of sentences that contain 'I'
 def onlyI(string):
-    return onlyWord(string, ' I ')
+    return onlyWord(string, 'I ')
 
 
 # returns a list of sentences that contain Alice
 # This is used only for conversion to other subjects
 def onlyAlice(string):
-    return onlyWord(string, ' Alice ')
+    return onlyWord(string, 'Alice ')
 
 
 # replaces Alice into I
@@ -166,11 +166,6 @@ def sheOrHeToYou(string):
     return string.replace('He ', 'You ').replace(' he ', ' you ').replace(' himself ', ' yourself').replace(' his ', ' your ').replace(' him ', ' you ')
 
 
-def collectI(string):
-    everyI = [strip(AliceToI(s)) for s in onlyAlice(string)] + onlyI(string)
-    return everyI
-
-
 def collectHe(string):
     everyHe = onlyWord(string,  'He ') + [sheToHe(s) for s in onlyWord(string, 'She ')]
     return everyHe
@@ -183,8 +178,8 @@ def collectShe(string):
 
 def collectI(string):
     everyI = [strip(AliceToI(s)) for s in onlyAlice(string) + onlyI(string)]
-    everyIverb = [s for s in everyI if matches(s, 'I \w+d ') and not hasName(s)]
-    return everyIverb
+    # to be fixed
+    return everyI
 
 
 def collectYou(string):

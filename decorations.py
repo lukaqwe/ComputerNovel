@@ -1,12 +1,7 @@
 import random
 import re
 
-
-def splash():
-    bucket = ['<b>', '<strong>', '<i>', '<em>', '<mark>',
-              '<small>', '<del>', '<ins>', '<sub>',  '<sup>']
-    one = random.choice(bucket)
-    return (one, '</' + one[1:])
+# TO be added More
 
 
 def bold(string, word):  # word is a REGEX
