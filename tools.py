@@ -199,3 +199,9 @@ def conjunction(I, SheHe, length):
     while len(result) != length:
         result.append(deleteDot(random.choice(I)) + ' and ' + random.choice(SheHe))
     return result
+
+
+def ratio():
+    Constants = [3.1415926535, 1.6180339887, 2.7182818284, 2.5849881759, 2.5029078750]
+    feigenbaum = 4.6692016091
+    return feigenbaum*random.choice(Constants)

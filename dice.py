@@ -6,15 +6,18 @@ from math import fabs
 isShe = decide()
 isHe = not isShe
 
+everyI = [s for s in onlyI(InvisibleMan) if not search(
+    s, ' [I,i]nvisible') and not hasName(s) and not hasYou(s) and not hasHe(s) and not hasShe(s) and not hasWe(s)]
+battles = int((len(everyI)//ratio())//2)
+
 
 def I_HeShe():
-    global Alice, LookingGlass, TimeMachine, isHe
+    global Alice, LookingGlass, TimeMachine, isHe, battles
 
     # collecting the I senteces
     everyI = collectI(Alice+LookingGlass+TimeMachine)
 
-    battles = 30
-    gap = battles // 10
+    gap = battles // ratio()
     result = ''
 
     if isHe:
@@ -32,6 +35,8 @@ def I_HeShe():
             else:
                 result += random.choice(everyHe) + '<br>'
                 countHe += 1
+
+        battles += int(fabs(countI-countHe))
         return result, fabs(countI-countHe) <= gap
     else:  # Do the exact same thing but with She
         everyShe = collectShe(Alice+LookingGlass+TimeMachine)
@@ -48,16 +53,16 @@ def I_HeShe():
                 result += random.choice(everyShe) + '<br>'
                 countShe += 1
 
+        battles += int(fabs(countI-countShe))
         return result, fabs(countI-countShe) <= gap
 
 
 def IorHeShe_IandHeShe():
-    global Alice, LookingGlass, TimeMachine, isShe
+    global Alice, LookingGlass, TimeMachine, isShe, battles
 
     everyI = [strip(s) for s in collectI(Alice+LookingGlass+TimeMachine)]
 
-    battles = 30
-    gap = battles // 10
+    gap = battles // ratio()
     result = ''
 
     if isShe:
@@ -75,6 +80,8 @@ def IorHeShe_IandHeShe():
             else:
                 result += random.choice(everyIandShe) + '<br>'
                 countIandShe += 1
+
+        battles += int(fabs(countIandShe-countIorShe))
         return result, fabs(countIandShe-countIorShe) <= gap
     else:  # Do the exact same thing but with He
         everyHe = collectHe(Alice+LookingGlass+TimeMachine)
@@ -92,14 +99,14 @@ def IorHeShe_IandHeShe():
                 result += random.choice(everyIandHe) + '<br>'
                 countIandHe += 1
 
+        battles += int(fabs(countIandHe-countIorHe))
         return result, fabs(countIandHe-countIorHe) <= gap
 
 
 def You_IorHeShe():
-    global Alice, LookingGlass, TimeMachine, isHe
+    global Alice, LookingGlass, TimeMachine, isHe, battles
 
-    battles = 30
-    gap = battles // 10
+    gap = battles // ratio()
 
     everyI = [strip(s) for s in collectI(Alice+LookingGlass+TimeMachine)]
     everyYou = [strip(s) for s in collectYou(Alice+LookingGlass+TimeMachine)]
@@ -120,6 +127,7 @@ def You_IorHeShe():
             else:
                 result += random.choice(everyYou) + '<br>'
                 countYou += 1
+
         return result, fabs(countYou-countIorHe) <= gap
 
     else:  # Do the exact same thing but with She
@@ -136,4 +144,5 @@ def You_IorHeShe():
             else:
                 result += random.choice(everyYou) + '<br>'
                 countYou += 1
+
         return result, fabs(countYou-countIorShe) <= gap
