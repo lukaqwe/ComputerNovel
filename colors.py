@@ -5,7 +5,7 @@ from tools import *
 # returns sentences that contain 'invisible' and 'alone'
 def invisible_alone():
     global InvisibleMan
-    everyInvisible = [s for s in onlyWord(
+    everyInvisible = [strip(s) for s in onlyWord(
         InvisibleMan, ' [I,i]nvisible') + onlyWord(InvisibleMan, ' [A,a]?lone') if not hasYou(s) and not isChapter(s) and not hasName(s)]
     InvisibleI = [heToI(s) for s in everyInvisible]
     return "<br>".join(mix(InvisibleI, len(InvisibleI)//ratio())) + "<br>"
@@ -14,7 +14,7 @@ def invisible_alone():
 # returns senteces that contain I form the Invisible Man
 def I_am_solitude():
     global InvisibleMan
-    everyI = [s for s in onlyI(InvisibleMan) if not search(
+    everyI = [strip(s) for s in onlyI(InvisibleMan) if not search(
         s, ' [I,i]nvisible') and not hasName(s) and not hasYou(s) and not hasHe(s) and not hasShe(s) and not hasWe(s)]
     return '<br>'.join(mix(everyI, len(everyI)//(ratio())))
 
@@ -23,7 +23,7 @@ def I_am_solitude():
 def interact():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
-    everySpeak = [s for s in onlyWord(Texts, ' speak') + onlyWord(Texts, ' spoke') + onlyWord(Texts, ' ask')
+    everySpeak = [strip(s) for s in onlyWord(Texts, ' speak') + onlyWord(Texts, ' spoke') + onlyWord(Texts, ' ask')
                   if not hasName(s) and (hasYou(s) or hasHe(s) or hasShe(s) or hasWe(s))]
     return '<br>'.join(mix(everySpeak, len(everySpeak)//ratio()))
 

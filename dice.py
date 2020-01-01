@@ -6,7 +6,7 @@ from math import fabs
 isShe = decide()
 isHe = not isShe
 
-everyI = [s for s in onlyI(InvisibleMan) if not search(
+everyI = [strip(s) for s in onlyI(InvisibleMan) if not search(
     s, ' [I,i]nvisible') and not hasName(s) and not hasYou(s) and not hasHe(s) and not hasShe(s) and not hasWe(s)]
 battles = int((len(everyI)//ratio())//2)
 
