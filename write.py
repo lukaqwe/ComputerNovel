@@ -71,7 +71,7 @@ def render_empath():
 
 
 # this is the main function that does the writing itself
-def write(iterations=0, PDF=True):
+def write(iterations=0, PDF=False):
     global WE
     templateLoader = jinja2.FileSystemLoader(searchpath="./")
     templateEnv = jinja2.Environment(loader=templateLoader)
@@ -101,7 +101,7 @@ def write(iterations=0, PDF=True):
 # this is used only to parse the command line arguments
 def main(argv):
     iter = 0
-    pdf = True
+    pdf = False
     try:
         opts, args = getopt.getopt(argv, "i:p", ["iterations=", "pdf="])
     except getopt.GetoptError:
@@ -116,10 +116,10 @@ def main(argv):
         if opt == '-i':
             iter = int(arg)
         if opt == '-p':
-            pdf = False
+            pdf = True
         if opt == '--pdf':
-            if arg == 'False':
-                pdf = False
+            if arg == 'True':
+                pdf = True
 
     write(iter, pdf)
 
