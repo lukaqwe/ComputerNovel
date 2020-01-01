@@ -82,6 +82,9 @@ def write(iterations=0, PDF=True):
             pdfkit.from_file('output/empathy.html', 'output/empathy.pdf')
     else:
         for i in range(iterations):
+            outputText = template.render(Solitude_Text=invisible_alone() +
+                                         I_am_solitude(), Multitude_text=interact()+unity(),
+                                         Empathy_Text=render_empath(), Death_text=death(WE))
             with open('output/empathy' + str(i) + '.html', 'w') as file:
                 file.write(outputText)
             if PDF:
@@ -105,7 +108,7 @@ def main(argv):
         if opt == '--iterations':
             iter = int(arg)
         if opt == '-i':
-            iter = int(args[0])
+            iter = int(arg)
         if opt == '-p':
             pdf = False
         if opt == '--pdf':

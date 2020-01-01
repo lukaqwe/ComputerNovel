@@ -196,6 +196,13 @@ def collectYou(string):
     return everyYou
 
 
+# just a simple dot deletion used in conjunction(I, SheHe ,length)
+def deleteDot(string):
+    if string[-1] == '.':
+        return string[:-1]
+    return string
+
+
 # Makes a sentece out of two sentences and connects them with "and"
 def conjunction(I, SheHe, length):
     result = []
