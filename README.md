@@ -28,8 +28,11 @@ In the chapter Empathy (the texts used here are Alice saga and Time Machine (bec
 
 In the chapter Death, if the "We" was formed, the sentences will contain a We instead of an I (in the case the "We " wasn't formed). Notably, the last sentence in this chapter is not randomly chosen and is always the same- "I died." (in the case "We" wasn't formed) or "We died." (in the other case). That is because, my dear friends, death is inevitable. Here all text was collected from the horror books: Frankenstein and Dracula.
 
-*If you want to see a more detailed explanation please read the documentation- .pdf file found in the folder /doc.
+____
+If you want to see a more detailed  and technical explanation please read the documentation- .pdf file found in the folder /doc.
 
-*Or, if you want to test the program, visit the instruction in the user's manual- .txt file found in the folder /doc.
+Or, if you want to test the program, visit the instruction in the user's manual- .txt file found in the folder /doc.
 
-*All contributions or suggestions are warmly welcomed :)
+All contributions or suggestions are warmly welcomed :)
+
+Please, send feedback at alexe.spataru99@e-uvt.ro
