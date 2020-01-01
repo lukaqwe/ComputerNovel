@@ -1,5 +1,7 @@
 import jinja2
 import pdfkit
+import sys
+import getopt
 
 from dice import *
 from colors import *
@@ -61,7 +63,7 @@ def render_empath():
     return outputText
 
 
-def write():
+def write(iterations=0, PDF=True):
     global WE
     templateLoader = jinja2.FileSystemLoader(searchpath="./")
     templateEnv = jinja2.Environment(loader=templateLoader)
@@ -70,12 +72,44 @@ def write():
     outputText = template.render(Solitude_Text=invisible_alone() +
                                  I_am_solitude(), Multitude_text=interact()+unity(),
                                  Empathy_Text=render_empath(), Death_text=death(WE))
+    if iterations == 0:
+        with open('output/empathy.html', 'w') as file:
+            file.write(outputText)
+        if PDF:
+            pdfkit.from_file('output/empathy.html', 'output/empathy.pdf')
+    else:
+        for i in range(iterations):
+            with open('output/empathy' + str(i) + '.html', 'w') as file:
+                file.write(outputText)
+            if PDF:
+                pdfkit.from_file('output/empathy' + str(i) + '.html',
+                                 'output/empathy' + str(i) + '.pdf')
 
-    with open('output/empathy.html', 'w') as file:
-        file.write(outputText)
 
-    pdfkit.from_file('output/empathy.html', 'output/empathy.pdf')
+def main(argv):
+    iter = 0
+    pdf = True
+    try:
+        opts, args = getopt.getopt(argv, "i:p", ["iterations=", "pdf="])
+    except getopt.GetoptError:
+        print('Cannot parse the command.\nCheck user manual. \nExiting ...')
+        sys.exit(2)
+    if len(argv) == 0:
+        write()
+        sys.exit(0)
+    for opt, arg in opts:
+        if opt == '--iterations':
+            iter = int(arg)
+        if opt == '-i':
+            iter = int(args[0])
+        if opt == '-p':
+            pdf = False
+        if opt == '--pdf':
+            if arg == 'False':
+                pdf = False
+
+    write(iter, pdf)
 
 
-if __name__ == '__main__':
-    write()
+if __name__ == "__main__":
+    main(sys.argv[1:])
