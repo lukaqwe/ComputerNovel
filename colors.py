@@ -1,8 +1,13 @@
 from read import *
 from tools import *
 
+#   This file contains functions used to create all other text except
+#                       the chapter Empathy
+#
 
 # collects sentences that contain 'invisible' and 'alone'
+
+
 def invisible_alone():
     global InvisibleMan
     everyInvisible = [strip(s) for s in onlyWord(
