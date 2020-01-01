@@ -1,0 +1,22 @@
+Empathy
+
+A generated novel
+------------
+
+Installation:
+
+$ git clone https://github.com/lukaqwe/ComputerNovel.git
+
+Use:
+
+ -- go to the directory where it was installed and run write.py in the following format
+
+
+    $ python3 write.py [OPTIONS]
+
+    Options:
+
+      -p                    do not convert to pdf
+      --pdf={True,False}    implicit declaration of convertion to pdf
+      -i N                  generate N copies
+      --iterations=N        implicit declaration of the numbers of copies to generate
