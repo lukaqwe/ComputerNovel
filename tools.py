@@ -6,6 +6,11 @@ import random
 #       also functions used for making the text random
 
 
+# cleans newlines and other spacey stuff
+def clean(string):
+    return string.replace('\r', '').replace('\n', ' ').replace('   ', '')
+
+
 # puts the occurence of the expression in html bold text
 def bold(string, regex):
     begin = re.search(regex, string).start()
