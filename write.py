@@ -10,6 +10,8 @@ WE = False
 
 
 # this function is contained in this file in order to modify the global variable WE
+# it genereates all text from the chapter empathy and returns a tuple of length 8
+# the even idexes contain the subchapter names and odd one contain the text itself
 def empath():
     global WE, isHe
 
@@ -72,10 +74,11 @@ def write(iterations=0, PDF=True):
     templateEnv = jinja2.Environment(loader=templateLoader)
     TEMPLATE_FILE = "templates/main.html"
     template = templateEnv.get_template(TEMPLATE_FILE)
-    outputText = template.render(Solitude_Text=invisible_alone() +
-                                 I_am_solitude(), Multitude_text=interact()+unity(),
-                                 Empathy_Text=render_empath(), Death_text=death(WE))
+
     if iterations == 0:
+        outputText = template.render(Solitude_Text=invisible_alone() +
+                                     I_am_solitude(), Multitude_text=interact()+unity(),
+                                     Empathy_Text=render_empath(), Death_text=death(WE))
         with open('output/empathy.html', 'w') as file:
             file.write(outputText)
         if PDF:
