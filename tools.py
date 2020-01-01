@@ -175,12 +175,12 @@ def sheOrHeToYou(string):
 
 # collects all sentences that contain He
 def collectHe(string):
-    return onlyWord(string,  'He ') + [sheToHe(s) for s in onlyWord(string, 'She ')]
+    return onlyWord(string,  'He ') + [sheToHe(strip(s)) for s in onlyWord(string, 'She ')]
 
 
 # collects all sentences that contain She
 def collectShe(string):
-    return onlyWord(string, 'She ') + [heToShe(s) for s in onlyWord(string, 'He ')]
+    return onlyWord(string, 'She ') + [heToShe(strip(s)) for s in onlyWord(string, 'He ')]
 
 
 # collects all sentences that contain I

@@ -5,6 +5,7 @@ import getopt
 
 from dice import *
 from colors import *
+from tools import decide
 
 WE = False
 
@@ -13,7 +14,9 @@ WE = False
 # it genereates all text from the chapter empathy and returns a tuple of length 8
 # the even idexes contain the subchapter names and odd one contain the text itself
 def empath():
-    global WE, isHe
+    global WE
+
+    isHe = decide()
 
     if isHe:
         result = ['I vs He', '', '', '', '', '', '', '']
@@ -34,15 +37,15 @@ def empath():
                     WE = True
     else:  # do the exact same thing for a she
         result = ['I vs She', '', '', '', '', '', '', '']
-        tmp = I_HeShe()
+        tmp = I_HeShe(isHe=False)
         result[1] = tmp[0]
 
         if tmp[1]:
-            tmp = IorHeShe_IandHeShe()
+            tmp = IorHeShe_IandHeShe(isHe=False)
             result[2] = 'I or She vs I and She'
             result[3] = tmp[0]
             if tmp[1]:
-                tmp = You_IorHeShe()
+                tmp = You_IorHeShe(isHe=False)
                 result[4] = 'You vs I or She'
                 result[5] = tmp[0]
                 if tmp[1]:

@@ -7,18 +7,14 @@ from math import fabs
 #   each returns a tuple of length 2 containing the text and the gap between occurences
 
 
-# Here the companion is decided
-isShe = decide()
-isHe = not isShe
-
 # everyI is used only for calculating the number of battles
 everyI = [strip(s) for s in onlyI(InvisibleMan) if not search(
     s, ' [I,i]nvisible') and not hasName(s) and not hasYou(s) and not hasHe(s) and not hasShe(s) and not hasWe(s)]
 battles = int((len(everyI)//ratio())//2)
 
 
-def I_HeShe():
-    global Alice, LookingGlass, TimeMachine, isHe, battles
+def I_HeShe(isHe=True):
+    global Alice, LookingGlass, TimeMachine,  battles
 
     # collecting the I senteces
     everyI = collectI(Alice+LookingGlass+TimeMachine)
@@ -63,15 +59,15 @@ def I_HeShe():
         return result, fabs(countI-countShe) <= gap
 
 
-def IorHeShe_IandHeShe():
-    global Alice, LookingGlass, TimeMachine, isShe, battles
+def IorHeShe_IandHeShe(isHe=True):
+    global Alice, LookingGlass, TimeMachine, battles
 
     everyI = [strip(s) for s in collectI(Alice+LookingGlass+TimeMachine)]
 
     gap = battles // ratio()
     result = ''
 
-    if isShe:
+    if not isHe:
         everyShe = collectShe(Alice+LookingGlass+TimeMachine)
         everyIandShe = conjunction(everyI, everyShe, 200)
 
@@ -109,8 +105,8 @@ def IorHeShe_IandHeShe():
         return result, fabs(countIandHe-countIorHe) <= gap
 
 
-def You_IorHeShe():
-    global Alice, LookingGlass, TimeMachine, isHe, battles
+def You_IorHeShe(isHe=True):
+    global Alice, LookingGlass, TimeMachine, battles
 
     gap = battles // ratio()
 
