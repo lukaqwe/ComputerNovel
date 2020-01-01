@@ -1,19 +1,14 @@
 import re
 import random
 
-#       This file contains all functions needed for
-#
-#       selecting or cleaning or cutting the text
-#
+#       This file contains all tools for making the text look beatiful
+#       also the tools for selecting and indentifying the text
+#       also functions used for making the text random
 
 
-# cleans newlines and other spacey stuff
-def clean(string):
-    return string.replace('\r', '').replace('\n', ' ').replace('   ', '')
-
-
-def bold(string, word):  # word is a REGEX
-    begin = re.search(word, string).start()
+# puts the occurence of the expression in html bold text
+def bold(string, regex):
+    begin = re.search(regex, string).start()
     end = begin+1
     while string[end].isalpha():
         end += 1
@@ -62,7 +57,7 @@ def AliceToI(string):
     return string.replace('Alice', 'I').replace('herself', 'myself')
 
 
-# returns true if it matches
+# returns true if matches
 def matches(string, expression):
     if re.compile(expression).match(string):
         return True
@@ -107,12 +102,12 @@ def hasI(string):
     return search(string, ' ?I[\' ]')
 
 
-# returns True if it has 'I'
+# returns True if it has 'He'
 def hasHe(string):
     return search(string, ' he[, ]')
 
 
-# returns True if it has 'I'
+# returns True if it has 'She'
 def hasShe(string):
     return search(string, ' she[, ]')
 
@@ -173,34 +168,30 @@ def sheOrHeToYou(string):
     return string.replace('He ', 'You ').replace(' he ', ' you ').replace(' himself ', ' yourself').replace(' his ', ' your ').replace(' him ', ' you ')
 
 
+# collects all sentences that contain He
 def collectHe(string):
-    everyHe = onlyWord(string,  'He ') + [sheToHe(s) for s in onlyWord(string, 'She ')]
-    return everyHe
+    return onlyWord(string,  'He ') + [sheToHe(s) for s in onlyWord(string, 'She ')]
 
 
+# collects all sentences that contain She
 def collectShe(string):
-    everyShe = onlyWord(string, 'She ') + [heToShe(s) for s in onlyWord(string, 'He ')]
-    return everyShe
+    return onlyWord(string, 'She ') + [heToShe(s) for s in onlyWord(string, 'He ')]
 
 
+# collects all sentences that contain I
 def collectI(string):
-    everyI = [strip(AliceToI(s)) for s in onlyAlice(string) + onlyI(string)]
-    # to be fixed
-    return everyI
+    # AliceToI is used because collectI is used on Alice's texts
+    return [strip(AliceToI(s)) for s in onlyAlice(string) + onlyI(string)]
 
 
+# collects all sentences that contain You
 def collectYou(string):
     everyYou = [strip(s) for s in onlyWord(string, '[Y,y]ou ') if not hasName(s)]
     everyYou += [sheOrHeToYou(s) for s in collectHe(string)+collectShe(string)]
     return everyYou
 
 
-def deleteDot(string):
-    if string[-1] == '.':
-        return string[:-1]
-    return string
-
-
+# Makes a sentece out of two sentences and connects them with "and"
 def conjunction(I, SheHe, length):
     result = []
     while len(result) != length:
@@ -208,6 +199,7 @@ def conjunction(I, SheHe, length):
     return result
 
 
+# computes the ratio which is used for calculating the number of sentences to generate
 def ratio():
     Constants = [3.1415926535, 1.6180339887, 2.7182818284, 2.5849881759, 2.5029078750]
     feigenbaum = 4.6692016091

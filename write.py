@@ -9,6 +9,7 @@ from colors import *
 WE = False
 
 
+# this function is contained in this file in order to modify the global variable WE
 def empath():
     global WE, isHe
 
@@ -49,6 +50,7 @@ def empath():
     return result
 
 
+# this function is used to generate the chapter empathy from the template empath.html
 def render_empath():
     emPATH = empath()
 
@@ -63,6 +65,7 @@ def render_empath():
     return outputText
 
 
+# this is the main function that does the writing itself
 def write(iterations=0, PDF=True):
     global WE
     templateLoader = jinja2.FileSystemLoader(searchpath="./")
@@ -86,6 +89,7 @@ def write(iterations=0, PDF=True):
                                  'output/empathy' + str(i) + '.pdf')
 
 
+# this is used only to parse the command line arguments
 def main(argv):
     iter = 0
     pdf = True

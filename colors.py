@@ -2,16 +2,16 @@ from read import *
 from tools import *
 
 
-# returns sentences that contain 'invisible' and 'alone'
+# collects sentences that contain 'invisible' and 'alone'
 def invisible_alone():
     global InvisibleMan
     everyInvisible = [strip(s) for s in onlyWord(
-        InvisibleMan, ' [I,i]nvisible') + onlyWord(InvisibleMan, ' [A,a]?lone') if not hasYou(s) and not isChapter(s) and not hasName(s)]
+        InvisibleMan, ' [I,i]nvisible') + onlyWord(InvisibleMan, ' [A,a]?lone') if not isChapter(s) and not hasName(s)]
     InvisibleI = [heToI(s) for s in everyInvisible]
     return "<br>".join(mix(InvisibleI, len(InvisibleI)//ratio())) + "<br>"
 
 
-# returns senteces that contain I form the Invisible Man
+# collects senteces that contain I f
 def I_am_solitude():
     global InvisibleMan
     everyI = [strip(s) for s in onlyI(InvisibleMan) if not search(
@@ -19,7 +19,7 @@ def I_am_solitude():
     return '<br>'.join(mix(everyI, len(everyI)//(ratio())))
 
 
-# returns sentences that contatin the word speak and ask
+# collects sentences that contatin the word speak and ask from Sherlock Holmes texts
 def interact():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
@@ -28,17 +28,16 @@ def interact():
     return '<br>'.join(mix(everySpeak, len(everySpeak)//ratio()))
 
 
-# returns sentences that contain the word both and together
+# collects sentences that contain the word both and together from Sherlock Holmes texts
 def unity():
     global Memoirs, Adventures
     Texts = Memoirs + Adventures
-
     everyBoth = [strip(s) for s in onlyWord(Texts, ' both') +
                  onlyWord(Texts, ' together') if not hasName(s)]
     return '<br>'.join(mix(everyBoth, len(everyBoth)//ratio()))
 
 
-# returns I sentences from Invisible Man converted to a we
+# collects I sentences from Invisible Man converted to a we
 def we():
 
     everyWe = [ItoWe(strip(s)) for s in onlyI(InvisibleMan) if not hasName(s)
@@ -46,7 +45,7 @@ def we():
     return '<br>'.join(mix(everyWe, len(everyWe)//ratio()))
 
 
-# prints sentences which contain the word 'death' from Frankenstein and Dracula
+# collects sentences which contain the word 'death' from Frankenstein and Dracula
 def death(we=False):
     global Frankenstein, Dracula
     AllDeath = onlyWord(Frankenstein+Dracula, ' ?[D,d]eath')
@@ -54,6 +53,6 @@ def death(we=False):
     everyDeath = [strip(s) for s in AllDeath if not hasName(s)]
     everyIdeath = [sheToI(heToI(weToI(s))) for s in everyDeath]
     if we:
-        return '<br>'.join([ItoWe(s) for s in mix(everyDeath, len(everyDeath)//ratio()) if not hasShe(s) and not hasHe(s)]+['We died.'])
+        return '<br>'.join([ItoWe(s) for s in mix(everyDeath, len(everyDeath)//ratio())]+['We died.'])
     else:
         return '<br>'.join(list(mix(everyIdeath, len(everyIdeath)//ratio()))+['<b>I died.</b>'])

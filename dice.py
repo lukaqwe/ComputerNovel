@@ -2,10 +2,16 @@ from read import *
 from tools import *
 from math import fabs
 
+#   This file contatins all functions necessary for generating the text
+#   in the chapter empathy. In total there are three functions for each level,
+#   each returns a tuple of length 2 containing the text and the gap between occurences
 
+
+# Here the companion is decided
 isShe = decide()
 isHe = not isShe
 
+# everyI is used only for calculating the number of battles
 everyI = [strip(s) for s in onlyI(InvisibleMan) if not search(
     s, ' [I,i]nvisible') and not hasName(s) and not hasYou(s) and not hasHe(s) and not hasShe(s) and not hasWe(s)]
 battles = int((len(everyI)//ratio())//2)
