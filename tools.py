@@ -1,6 +1,5 @@
 import re
 import random
-from decorations import *
 
 #       This file contains all functions needed for
 #
@@ -11,6 +10,14 @@ from decorations import *
 # cleans newlines and other spacey stuff
 def clean(string):
     return string.replace('\r', '').replace('\n', ' ').replace('   ', '')
+
+
+def bold(string, word):  # word is a REGEX
+    begin = re.search(word, string).start()
+    end = begin+1
+    while string[end].isalpha():
+        end += 1
+    return string[:begin] + '<b>' + string[begin:end] + '</b>' + string[end:]
 
 
 # removes everything which is not alpha at the beginning and changes first letter to uppercase if necessary
