@@ -16,7 +16,7 @@ Usage:
 
     Options:
 
-      -p                    do not convert to pdf
+      -p                    convert to pdf
       --pdf={True,False}    implicit declaration of convertion to pdf
       -i <N>                generate N copies
       --iterations=<N>      implicit declaration of the number N of copies to generate
