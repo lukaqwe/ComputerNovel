@@ -5,9 +5,8 @@ from tools import *
 #                       the chapter Empathy
 #
 
+
 # collects sentences that contain 'invisible' and 'alone'
-
-
 def invisible_alone():
     global InvisibleMan
     everyInvisible = [strip(s) for s in onlyWord(
@@ -16,7 +15,7 @@ def invisible_alone():
     return "<br>".join(mix(InvisibleI, len(InvisibleI)//ratio())) + "<br>"
 
 
-# collects senteces that contain I f
+# collects senteces that contain I from the Invisible Man
 def I_am_solitude():
     global InvisibleMan
     everyI = [strip(s) for s in onlyI(InvisibleMan) if not search(
@@ -42,14 +41,6 @@ def unity():
     return '<br>'.join(mix(everyBoth, len(everyBoth)//ratio()))
 
 
-# collects I sentences from Invisible Man converted to a we
-def we():
-
-    everyWe = [ItoWe(strip(s)) for s in onlyI(InvisibleMan) if not hasName(s)
-               and not hasYou(s) and not hasHe(s) and not hasShe(s)]
-    return '<br>'.join(mix(everyWe, len(everyWe)//ratio()))
-
-
 # collects sentences which contain the word 'death' from Frankenstein and Dracula
 def death(we=False):
     global Frankenstein, Dracula
@@ -57,6 +48,7 @@ def death(we=False):
 
     everyDeath = [strip(s) for s in AllDeath if not hasName(s)]
     everyIdeath = [sheToI(heToI(weToI(s))) for s in everyDeath]
+
     if we:
         return '<br>'.join([ItoWe(s) for s in mix(everyDeath, len(everyDeath)//ratio())]+['We died.'])
     else:

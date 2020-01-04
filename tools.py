@@ -6,18 +6,20 @@ import random
 #       also functions used for making the text random
 
 
+def decide():
+    return random.choice([True, False])
+
+
+# computes the ratio which is used for calculating the number of sentences to generate
+def ratio():
+    Constants = [3.1415926535, 1.6180339887, 2.7182818284, 2.5849881759, 2.5029078750]
+    feigenbaum = 4.6692016091
+    return feigenbaum*random.choice(Constants)
+
+
 # cleans newlines and other spacey stuff
 def clean(string):
     return string.replace('\r', '').replace('\n', ' ').replace('   ', '')
-
-
-# puts the occurence of the expression in html bold text
-def bold(string, regex):
-    begin = re.search(regex, string).start()
-    end = begin+1
-    while string[end].isalpha():
-        end += 1
-    return string[:begin] + '<b>' + string[begin:end] + '</b>' + string[end:]
 
 
 # removes everything which is not alpha at the beginning and changes first letter to uppercase if necessary
@@ -38,6 +40,16 @@ def slice(string):
     end = afterword.search(string).start()
 
     return string[begin:end]
+
+
+# puts a word in html bold text
+# used only in onlyWord(string,word)
+def bold(string, expression):
+    begin = re.search(expression, string).start()
+    end = begin+1
+    while string[end].isalpha():
+        end += 1
+    return string[:begin] + '<b>' + string[begin:end] + '</b>' + string[end:]
 
 
 # returns a list of senteces that contain a word taken as input
@@ -86,10 +98,6 @@ def hasName(string):
     return False
 
 
-def decide():
-    return random.choice([True, False])
-
-
 # returns True if it contains 'you'
 def hasYou(string):
     string = strip(string)
@@ -122,15 +130,6 @@ def hasWe(string):
     return search(string, ' ?[W,w]e ')
 
 
-# takes as input a list of strings and a number n and outputs
-#  a set of n random strings such that they don't repeat
-def mix(list, n):
-    Set = set()
-    while len(Set) != n:
-        Set.add(random.choice(list))
-    return Set
-
-
 # converts he to she
 def heToShe(string):
     return string.replace('He', 'She').replace(' he ', ' she ').replace(' his ', ' her ').replace(' him ', ' her ').replace(' himself', ' herself')
@@ -138,7 +137,7 @@ def heToShe(string):
 
 # converts she to he
 def sheToHe(string):
-    return string.replace('She', 'He').replace(' she ', ' he ').replace(' her ', ' his ').replace(' her ', ' him ').replace(' herself', ' himself')
+    return string.replace('She', 'He').replace(' she ', ' he ').replace(' her ', ' him ').replace(' herself', ' himself')
 
 
 # converts I to we
@@ -173,12 +172,12 @@ def sheOrHeToYou(string):
     return string.replace('He ', 'You ').replace(' he ', ' you ').replace(' himself ', ' yourself').replace(' his ', ' your ').replace(' him ', ' you ')
 
 
-# collects all sentences that contain He
+# collects all sentences that contain He by converting the She sentences too
 def collectHe(string):
     return onlyWord(string,  'He ') + [sheToHe(strip(s)) for s in onlyWord(string, 'She ')]
 
 
-# collects all sentences that contain She
+# collects all sentences that contain She by converting the he sentences too
 def collectShe(string):
     return onlyWord(string, 'She ') + [heToShe(strip(s)) for s in onlyWord(string, 'He ')]
 
@@ -186,7 +185,7 @@ def collectShe(string):
 # collects all sentences that contain I
 def collectI(string):
     # AliceToI is used because collectI is used on Alice's texts
-    return [strip(AliceToI(s)) for s in onlyAlice(string) + onlyI(string)]
+    return [strip(AliceToI(s)) for s in onlyAlice(string)] + onlyI(string)
 
 
 # collects all sentences that contain You
@@ -196,23 +195,18 @@ def collectYou(string):
     return everyYou
 
 
-# just a simple dot deletion used in conjunction(I, SheHe ,length)
-def deleteDot(string):
-    if string[-1] == '.':
-        return string[:-1]
-    return string
+# takes as input a list of strings and a number n and outputs
+#  a set of n random strings such that they don't repeat
+def mix(list, n):
+    Set = set()
+    while len(Set) != n:
+        Set.add(random.choice(list))
+    return Set
 
 
 # Makes a sentece out of two sentences and connects them with "and"
 def conjunction(I, SheHe, length):
     result = []
     while len(result) != length:
-        result.append(deleteDot(random.choice(I)) + ' and ' + random.choice(SheHe))
+        result.append(random.choice(I)[:-1] + ' and ' + random.choice(SheHe))
     return result
-
-
-# computes the ratio which is used for calculating the number of sentences to generate
-def ratio():
-    Constants = [3.1415926535, 1.6180339887, 2.7182818284, 2.5849881759, 2.5029078750]
-    feigenbaum = 4.6692016091
-    return feigenbaum*random.choice(Constants)
